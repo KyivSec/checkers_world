@@ -2,27 +2,22 @@
 
 🧩 **Checkers World** is a mod that adds a brand-new world preset called Checkers.
 
-Instead of standard terrain, Checkers generates a fully custom checker-pattern world made from two block types you choose. It is designed for clean testing spaces, creative build canvases, automation setups, and controlled challenge worlds.
+Instead of standard terrain, Checkers generates a **fully custom checker-pattern** world made from two block types you choose. It is designed for clean testing spaces, creative build canvases, automation setups, and controlled challenge worlds.
 
 ✨ **What it adds**
 When creating a new world, select the Checkers world type and customize:
 
-**First Block**
-Primary checker block (default: minecraft:white_concrete)
-
-**Second Block**
-Secondary checker block (default: minecraft:gray_concrete)
-
-**Depth Level**
-How many vertical layers are generated downward
-
-**Segment Size**
-Size of each checker cube segment (default: 5, configurable bigger or smaller)
-
-**Starting Y**
-Vertical level where generation starts
-
-**Bedrock Bottom Toggle**
+- **First Block**
+  Primary checker block (default: minecraft:white_concrete)
+- **Second Block**
+  Secondary checker block (default: minecraft:gray_concrete)
+- **Depth Level**
+  How many vertical layers are generated downward
+- **Segment Size**
+  Size of each checker cube segment (default: 5, configurable bigger or smaller)
+- **Starting Y**
+  Vertical level where generation starts
+- **Bedrock Bottom Toggle**
 Choose whether to place bedrock at the bottom generated layer
 
 🌍 Generation behavior
