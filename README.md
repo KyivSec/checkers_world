@@ -1,25 +1,39 @@
+# Checkers World
 
-Installation information
-=======
+🧩 **Checkers World** is a mod that adds a brand-new world preset called Checkers.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+Instead of standard terrain, Checkers generates a fully custom checker-pattern world made from two block types you choose. It is designed for clean testing spaces, creative build canvases, automation setups, and controlled challenge worlds.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+✨ **What it adds**
+When creating a new world, select the Checkers world type and customize:
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+**First Block**
+Primary checker block (default: minecraft:white_concrete)
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+**Second Block**
+Secondary checker block (default: minecraft:gray_concrete)
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+**Depth Level**
+How many vertical layers are generated downward
+
+**Segment Size**
+Size of each checker cube segment (default: 5, configurable bigger or smaller)
+
+**Starting Y**
+Vertical level where generation starts
+
+**Bedrock Bottom Toggle**
+Choose whether to place bedrock at the bottom generated layer
+
+🌍 Generation behavior
+- The world is generated as alternating checkered cube segments in X/Y/Z.
+- Segment size is fully configurable.
+- Depth is configurable and generated downward from your chosen starting Y.
+- Optional bedrock floor at the bottom of generated depth.
+- No vanilla structures, landmarks, or biome decoration are generated in Checkers worlds.
+
+🛠️ Why use Checkers World
+1. Build on a predictable, perfectly structured terrain
+1. Prototype farms/redstone/automation without worldgen noise
+1. Create custom challenge maps with controlled block palettes
+1. Quickly spin up clean worlds for modpack testing
