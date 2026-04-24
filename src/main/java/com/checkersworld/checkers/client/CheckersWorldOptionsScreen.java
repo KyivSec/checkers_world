@@ -38,6 +38,22 @@ public final class CheckersWorldOptionsScreen extends Screen {
 
     private BlockState parsedFirstBlock;
     private BlockState parsedSecondBlock;
+    private int panelLeft;
+    private int panelTop;
+    private int panelWidth;
+    private int panelHeight;
+    private int inputLeft;
+    private int inputWidth;
+    private int previewX;
+    private int firstLabelY;
+    private int firstInputY;
+    private int secondLabelY;
+    private int secondInputY;
+    private int depthY;
+    private int segmentY;
+    private int startYY;
+    private int bedrockY;
+    private int buttonY;
 
     public CheckersWorldOptionsScreen(Screen parent, CheckersGeneratorSettings initial, Consumer<CheckersGeneratorSettings> onApply) {
         super(Component.translatable("checkersworld.screen.title"));
@@ -50,24 +66,38 @@ public final class CheckersWorldOptionsScreen extends Screen {
 
     @Override
     protected void init() {
-        int centerX = this.width / 2;
-        int left = centerX - 110;
-        int inputWidth = 220;
+        this.panelWidth = Math.min(360, this.width - 12);
+        this.panelHeight = Math.min(280, this.height - 12);
+        this.panelLeft = (this.width - this.panelWidth) / 2;
+        this.panelTop = (this.height - this.panelHeight) / 2;
+        this.previewX = this.panelLeft + this.panelWidth - 30;
+        this.inputLeft = this.panelLeft + 12;
+        this.inputWidth = Math.max(120, this.previewX - this.inputLeft - 8);
 
-        this.firstBlockInput = new EditBox(this.font, left, 52, inputWidth, 20, Component.translatable("checkersworld.first_block"));
+        this.firstLabelY = this.panelTop + 20;
+        this.firstInputY = this.panelTop + 32;
+        this.secondLabelY = this.panelTop + 62;
+        this.secondInputY = this.panelTop + 74;
+        this.depthY = this.panelTop + 106;
+        this.segmentY = this.panelTop + 134;
+        this.startYY = this.panelTop + 162;
+        this.bedrockY = this.panelTop + 190;
+        this.buttonY = this.panelTop + this.panelHeight - 24;
+
+        this.firstBlockInput = new EditBox(this.font, this.inputLeft, this.firstInputY, this.inputWidth, 20, Component.translatable("checkersworld.first_block"));
         this.firstBlockInput.setValue(formatBlock(this.current.firstBlock()));
         this.firstBlockInput.setResponder(this::onFirstBlockChanged);
         this.addRenderableWidget(this.firstBlockInput);
 
-        this.secondBlockInput = new EditBox(this.font, left, 94, inputWidth, 20, Component.translatable("checkersworld.second_block"));
+        this.secondBlockInput = new EditBox(this.font, this.inputLeft, this.secondInputY, this.inputWidth, 20, Component.translatable("checkersworld.second_block"));
         this.secondBlockInput.setValue(formatBlock(this.current.secondBlock()));
         this.secondBlockInput.setResponder(this::onSecondBlockChanged);
         this.addRenderableWidget(this.secondBlockInput);
 
         this.depthSlider = this.addRenderableWidget(new IntSlider(
-            left,
-            136,
-            inputWidth,
+            this.inputLeft,
+            this.depthY,
+            this.inputWidth + 26,
             20,
             Component.translatable("checkersworld.depth"),
             CheckersGeneratorSettings.minDepth(),
@@ -84,9 +114,9 @@ public final class CheckersWorldOptionsScreen extends Screen {
         ));
 
         this.segmentSizeSlider = this.addRenderableWidget(new IntSlider(
-            left,
-            178,
-            inputWidth,
+            this.inputLeft,
+            this.segmentY,
+            this.inputWidth + 26,
             20,
             Component.translatable("checkersworld.segment_size"),
             CheckersGeneratorSettings.minSegmentSize(),
@@ -103,9 +133,9 @@ public final class CheckersWorldOptionsScreen extends Screen {
         ));
 
         this.startYSlider = this.addRenderableWidget(new IntSlider(
-            left,
-            220,
-            inputWidth,
+            this.inputLeft,
+            this.startYY,
+            this.inputWidth + 26,
             20,
             Component.translatable("checkersworld.start_y"),
             START_Y_MIN,
@@ -122,7 +152,7 @@ public final class CheckersWorldOptionsScreen extends Screen {
         ));
 
         this.bedrockToggle = this.addRenderableWidget(CycleButton.onOffBuilder(this.current.generateBedrock())
-            .create(left, 262, inputWidth, 20, Component.translatable("checkersworld.bedrock"), (button, value) -> {
+            .create(this.inputLeft, this.bedrockY, this.inputWidth + 26, 20, Component.translatable("checkersworld.bedrock"), (button, value) -> {
                 this.current = new CheckersGeneratorSettings(
                     this.parsedFirstBlock,
                     this.parsedSecondBlock,
@@ -133,12 +163,13 @@ public final class CheckersWorldOptionsScreen extends Screen {
                 );
             }));
 
+        int actionWidth = (this.panelWidth - 28) / 2;
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> this.onDone())
-            .bounds(centerX - 154, this.height - 28, 150, 20)
+            .bounds(this.panelLeft + 12, this.buttonY, actionWidth, 20)
             .build());
 
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> this.onClose())
-            .bounds(centerX + 4, this.height - 28, 150, 20)
+            .bounds(this.panelLeft + 16 + actionWidth, this.buttonY, actionWidth, 20)
             .build());
     }
 
@@ -149,17 +180,17 @@ public final class CheckersWorldOptionsScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        int centerX = this.width / 2;
-        int previewX = centerX + 116;
+        int centerX = this.panelLeft + this.panelWidth / 2;
 
-        guiGraphics.drawCenteredString(this.font, this.title, centerX, 18, 0xFFFFFF);
-        guiGraphics.drawString(this.font, Component.translatable("checkersworld.first_block"), centerX - 110, 40, 0xFFFFFF);
-        guiGraphics.drawString(this.font, Component.translatable("checkersworld.second_block"), centerX - 110, 82, 0xFFFFFF);
+        guiGraphics.drawCenteredString(this.font, this.title, centerX, this.panelTop + 6, 0xFFFFFF);
+        guiGraphics.drawString(this.font, Component.translatable("checkersworld.first_block"), this.inputLeft, this.firstLabelY, 0xFFFFFF);
+        guiGraphics.drawString(this.font, Component.translatable("checkersworld.second_block"), this.inputLeft, this.secondLabelY, 0xFFFFFF);
 
-        drawBlockPreview(guiGraphics, previewX, 53, this.parsedFirstBlock);
-        drawBlockPreview(guiGraphics, previewX, 95, this.parsedSecondBlock);
+        drawBlockPreview(guiGraphics, this.previewX, this.firstInputY + 1, this.parsedFirstBlock);
+        drawBlockPreview(guiGraphics, this.previewX, this.secondInputY + 1, this.parsedSecondBlock);
 
     }
 
