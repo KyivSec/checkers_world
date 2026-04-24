@@ -1,0 +1,11 @@
+{
+  "generator.checkersworld.checkers": "Checkers",
+  "checkersworld.screen.title": "Customize Checkers",
+  "checkersworld.first_block": "First Block",
+  "checkersworld.second_block": "Second Block",
+  "checkersworld.depth": "Depth Level",
+  "checkersworld.segment_size": "Segment Size",
+  "checkersworld.start_y": "Starting Y",
+  "checkersworld.bedrock": "Generate Bedrock Bottom",
+  "checkersworld.slider": "%s: %s"
+}
